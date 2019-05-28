@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
@@ -30,8 +29,8 @@ public class Board extends JComponent
         {
             for(int width = 0; width < cel[0].length; width++)
             {
-                Point p = new Point(width*10;height*10);
-                temp = detCelCol(cel[height][width].getState(), cel[height][width].getPrevState())
+                Point p = new Point(width*10,height*10);
+                temp = detCelCol(cel[height][width].getState(), cel[height][width].getPrevState());
                 g.setColor(temp);
                 
                 g.fillRect(p,celDem);
