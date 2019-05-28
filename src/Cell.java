@@ -13,12 +13,12 @@ public class Cell
     
     public Cell (int state)
     {
-        state = state;
+        this.state = state;
         prevState = 0;
         neighbors = 0;
     }
     
-    public void incrNeighbors (int neighbors)
+    public void incrNeighbors ()
     {
         neighbors++;
     }
