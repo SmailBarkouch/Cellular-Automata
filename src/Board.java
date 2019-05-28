@@ -33,9 +33,9 @@ public class Board extends JComponent
                 temp = detCelCol(cel[height][width].getState(), cel[height][width].getPrevState());
                 g.setColor(temp);
                 
-                g.fillRect(p,celDem);
+                g.fillRect((int) p.getX(), (int) p.getY(), (int) celDem.getHeight(), (int) celDem.getWidth());
                 g.setColor(Color.BLACK);
-                g.drawRect(p,celDem);
+                g.drawRect((int) p.getX(), (int) p.getY(), (int) celDem.getHeight(), (int) celDem.getWidth());
             }
         }
     }
