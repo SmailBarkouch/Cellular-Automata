@@ -19,6 +19,7 @@ public class GameOfLife
         inst = new Board(window);
         
         window.add(inst);
+        window.setVisible(true);
         
         String over = "comfirm";
         
