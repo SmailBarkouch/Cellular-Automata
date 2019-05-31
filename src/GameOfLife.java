@@ -23,7 +23,7 @@ public class GameOfLife
         
         String over = "comfirm";
         
-        while(over == "comfirm")
+        while(over.equals("comfirm"))
         {
             System.out.println("Welcome to the Game Of Life!");
             System.out.println("To begin, chose the coordinates of your alive cells, from the top left!");
@@ -39,7 +39,7 @@ public class GameOfLife
             System.out.println("Type a number to progress that number of generations.");
             System.out.println("If want to restart the game, type\"repeat\", otherwise type anything else to quit");
             over = "repeat";
-            while(over == "repeat")
+            while(over.equals("repeat"))
             {
                 over = scan.nextLine();
                 try
