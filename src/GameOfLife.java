@@ -1,5 +1,6 @@
-import java.util.Scanner;
+package us.sbarkouch.gameoflife;
 
+import java.util.Scanner;
 import javax.swing.JFrame;
 
 public class GameOfLife
@@ -10,11 +11,12 @@ public class GameOfLife
     {
     	JFrame window = new JFrame("Smail's Game Of Life");
         Scanner scan = new Scanner(System.in);
-        int chos = 20;
+        int chos = 4;
         int coord1;
     	int coord2;
+    	int gen;
         
-        window.setSize(500,500);
+        window.setSize(1000,2000);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inst = new Board(window);
         
@@ -32,23 +34,25 @@ public class GameOfLife
             {
                 coord1 = scan.nextInt();
                 coord2 = scan.nextInt();
-                inst.setCell(coord1, coord2, new Cell(1));
+                inst.setCell(coord1, coord2);
+                inst.repaint();
             }
             
             System.out.println("Good, now this is the \"enjoyable\" part!");
-            System.out.println("Type a number to progress that number of generations.");
-            System.out.println("If want to restart the game, type\"repeat\", otherwise type anything else to quit");
+            System.out.println("Type a number to traverse that many generations on the board");
+            System.out.println("If you want to quit, enter a non-numerical value, if you want to restart, type \"restart\".");
             over = "repeat";
             while(over.equals("repeat"))
             {
-                over = scan.nextLine();
-                try
+                try 
                 {
-                    repGen(Integer.parseInt(over));
-                } catch (IllegalArgumentException exception) {
-                    break;
+                	gen = scan.nextInt();
+                	repGen(gen);
+                } catch (Exception e) {
+                	over = scan.nextLine();
                 }
             }
+            scan.close();
         }
     }
     
@@ -56,6 +60,7 @@ public class GameOfLife
     {
         for(int i = 0; i < rep; i++)
         {
+        	inst.resetAllNeigh();
             inst.progressGen();
         }
     }
