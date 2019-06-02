@@ -1,3 +1,5 @@
+package us.sbarkouch.gameoflife;
+
 public class Cell
 {
     private int state; // Will be either 0 or 1, 0 denoting a dead state and 1 denoting an alive state
@@ -39,17 +41,19 @@ public class Cell
         return prevState;
     }
     
+    public void resetNeigh()
+    {
+    	neighbors = 0;
+    }
+    
     public void updState () // changes the state based on neighbors
     {
-        if(neighbors < 2 || neighbors > 3) // these are death cases, from overpopulation or underpopulation
+    	prevState = state;
+        if(neighbors < 3 || neighbors > 4) // these are death cases, from overpopulation or underpopulation
         {
-            prevState = state;
             state = 0;
         } else if (neighbors == 3) { // reproduction case
-            prevState = state;
-            state = 1;
-        } else { // an alive cell stayes alive
-            prevState = state;
+        	state = 1;
         }
     }
 }
