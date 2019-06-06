@@ -2,20 +2,20 @@ package us.sbarkouch.gameoflife;
 
 public class Cell
 {
-    private int state; // Will be either 0 or 1, 0 denoting a dead state and 1 denoting an alive state
-    private int prevState; // The state of a cell from the last generation
-    private int neighbors; // The amount of live neighbors around a cell, at most 8
+    private int state; 
+    private int prevState; 
+    private int neighbors; 
     
-    public Cell () // setting all values to 0 since they need to be updated
+    public Cell () 
     {
-        state = 0; // all cells are orignally dead util set otherwise or by the player
+        state = 0; 
         prevState = 0;
-        neighbors = 0; // unchecked
+        neighbors = 0; 
     }
     
-    public Cell (int state) // setting all values to 0, but state becomes 1 as per player choice
+    public Cell (int state) 
     {
-        this.state = state; // becomes 1
+        this.state = state; 
         prevState = 0;
         neighbors = 0;
     }
@@ -46,13 +46,20 @@ public class Cell
     	neighbors = 0;
     }
     
+    public int getNeigh()
+    {
+    	return neighbors;
+    }
+    
     public void updState () // changes the state based on neighbors
     {
     	prevState = state;
-        if(neighbors < 3 || neighbors > 4) // these are death cases, from overpopulation or underpopulation
+        if(neighbors < 2 || neighbors > 3) // these are death cases, from overpopulation or underpopulation
         {
             state = 0;
-        } else if (neighbors == 3) { // reproduction case
+        } 
+        if (neighbors == 3) // reproduction case
+        {
         	state = 1;
         }
     }
