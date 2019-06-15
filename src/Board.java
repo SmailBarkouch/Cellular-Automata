@@ -4,20 +4,33 @@ import java.awt.Color;
 import java.awt.Dimension; 
 import java.awt.Graphics; 
 import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame; 
 
-public class Board extends JComponent
+public class Board extends JComponent implements MouseListener, ComponentListener
 {
-
+	/*
+	 * Used variables to control board graphics as well as determine the number of
+	 * neighbors present around a cell.
+	 */
 	private static final long serialVersionUID = 1L;
 	private Cell[][] cel; 
 	private Cell[][] tempCel;
 	public Dimension celDem;
 	public static final int split = 50;
-	public ResizeListener listen;
 	private int colorSch;
+	private Point loc;
     
+	/*
+	 * Constructor that creates all cells in this given run
+	 * and creates the tempCel to store uneditied boards for
+	 * logic.
+	 */
     public Board () 
     {
     	cel = new Cell[split][split];
@@ -34,10 +47,13 @@ public class Board extends JComponent
         celDem = new Dimension(10,10); 
         }
     
+	/*
+	 * Uses the JFrame to construct the Board. tempCel
+	 * is also constructed and used for logic.
+	 */
     public Board (JFrame j) 
     {
-    	listen = new ResizeListener (j.getWidth() / split, j.getHeight() / split);
-    	celDem = listen.celDem;
+    	celDem = new Dimension();
     	tempCel = new Cell[split][split];
     	cel = new Cell [split][split];
     	for(int height = 0; height < split; height++)
@@ -50,9 +66,12 @@ public class Board extends JComponent
         }
     }
     
+	/*
+	 * Used to put graphical aspects on the JFrame, determines the color of cells on the board
+	 * as well as determining where each cell will be placed.
+	 */
     public void paintComponent (Graphics g) 
     {
-    	celDem = listen.celDem;
     	Color temp;
         for(int width = 0; width < cel.length; width++) 
         {
@@ -65,14 +84,17 @@ public class Board extends JComponent
                 } else {
                 	temp = detCelColBW(cel[height][width].getState());
                 }
-                g.setColor(temp); 
-                g.fillRect((int) p.getX(), (int) p.getY(), (int) celDem.getWidth() / split, (int) celDem.getHeight() / split); 
-                g.setColor(Color.BLACK); 
-                g.drawRect((int) p.getX(), (int) p.getY(), (int) celDem.getWidth() / split, (int) celDem.getHeight() / split); 
+                	g.setColor(temp); 
+                    g.fillRect((int) p.getX(), (int) p.getY(), (int) celDem.getWidth() / split, (int) celDem.getHeight() / split);
+                    g.setColor(Color.BLACK); 
+                    g.drawRect((int) p.getX(), (int) p.getY(), (int) celDem.getWidth() / split, (int) celDem.getHeight() / split);
             }
         }
     }
     
+	/*
+	 * Determines the color of what a cell should be in RGB values, based on the state and prevState.
+	 */
     public Color detCelColRGB (int state, int prevState) 
     {
         if(state == 0 && prevState == 0) 
@@ -87,6 +109,9 @@ public class Board extends JComponent
         }
     }
     
+    /*
+	 * Determines the color of what a cell should be in Black and White values, based on the current state.
+	 */
     public Color detCelColBW (int state) 
     {
         if(state == 1) 
@@ -97,6 +122,10 @@ public class Board extends JComponent
         }
     }
     
+    /*
+	 * Sets the board's colorSch that is used to determine if RGB or Black and White values will
+	 * be used.
+	 */
     public void setColorSch(int choose)
     {
     	if(choose == 1)
@@ -107,6 +136,10 @@ public class Board extends JComponent
     	}
     }
     
+    /*
+	 * Progresses a generation on the board. Does this by creating a duplicate board on tempCel
+	 * and then using that board for another method that determines the amount of neighbors around each cell.
+	 */
     public void progressGen () 
     {
     	for(int width = 0; width < split; width++)
@@ -133,6 +166,9 @@ public class Board extends JComponent
         repaint();
     }
     
+    /*
+	 * Resets all neighbors values on each cell for the board.
+	 */
     public void resetAllNeigh()
     {
     	for(int width = 0; width < split; width++)
@@ -144,11 +180,18 @@ public class Board extends JComponent
         }
     }
     
+    /*
+	 * Used to set points on the board determined by the player.
+	 */
     public void setCell(int x, int y) 
     {
         cel[x][y] = new Cell(1);
     }
     
+    /*
+	 * Determines the number of neighbors around the board. Does this by utilising tempCel, a copy of the board,
+	 * and comparing what cells are alive on a not yet edited board.
+	 */
     public void calcNeighbors (int width, int height) 
     {
         for(int hori = -1; hori < 2; hori++) 
@@ -167,5 +210,56 @@ public class Board extends JComponent
         }
         
     }
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		loc = arg0.getLocationOnScreen();
+		if(cel[(int) loc.getX() / split][(int) loc.getY() / split].getState() == 0)
+		{
+			cel[(int) (loc.getX() / split)][(int) (loc.getY() / split)] = new Cell(1);
+			System.out.println(loc.getX());
+			System.out.println(split);
+			System.out.println(celDem.getWidth());
+		} else {
+			cel[(int) (loc.getX() / split)][(int) (loc.getY() / split)] = new Cell(0);
+		}
+		repaint();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	 /*
+	  * Used to give the dimension of the page after each resize.
+	  */
+	public void componentResized (ComponentEvent e)
+    {
+    	celDem = e.getComponent().getBounds().getSize();
+    }
+
+	public void componentHidden(ComponentEvent e) {}
+	public void componentMoved(ComponentEvent e) {}
+	public void componentShown(ComponentEvent e) {}
 
 }
