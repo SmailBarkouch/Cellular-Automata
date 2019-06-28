@@ -8,26 +8,21 @@ public class Cell
     private int state; 
     private int prevState; 
     private int neighbors; 
+    private int res;
+    private int dead1;
+    private int dead2;
     
     /*
-	 * Constructs a default dead cell.
+	 * Constructs a cell with a custom state, and custom death and ressurrection values.
 	 */
-    public Cell () 
-    {
-        state = 0; 
-        prevState = 0;
-        neighbors = 0; 
-    }
-    
-    
-    /*
-	 * Constructs a cell with a custom state, only used to give an alive cell.
-	 */
-    public Cell (int state) 
+    public Cell (int state, int res, int dead1, int dead2) 
     {
         this.state = state; 
         prevState = 0;
         neighbors = 0;
+        this.res = res;
+        this.dead1 = dead1;
+        this.dead2 = dead2;
     }
     
     /*
@@ -81,16 +76,16 @@ public class Cell
     
     /*
 	 * Changes its state and previous state based on the instance variable neighbors,
-	 * holding the amount of neighbors in the cell.
+	 * as well as provided conditions.
 	 */  
     public void updState () 
     {
     	prevState = state;
-        if(neighbors < 2 || neighbors > 3) 
+        if(neighbors < dead1 || neighbors > dead2 && dead1 != -1 && dead2 != -1) 
         {
             state = 0;
         } 
-        if (neighbors == 3) 
+        if (neighbors == res) 
         {
         	state = 1;
         }
