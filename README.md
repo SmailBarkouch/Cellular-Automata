@@ -1,31 +1,25 @@
-# Smail's Game of Life
-
-**NOTE: This is not clean code, or efficent. It was written when I first started programming for AP Computer Science.**
-
-<p> This is my take of Conway's Game of Life. I am doing this as an end of the year project for McNair Academic
-Highschool AP CompSci class. This is going to try to function as close to Conway's idea, with some ideas being my
-own.<p>
+# Cellular Automata
 
 ### Information:
-<p>Conway’s Game of Life is a cellular automaton created by John Horton Conway in 1970. It is called a 0 player game because points are set and manipulated by pre-set inputs. These initial values will be placed on a two-dimensional plane, or specifically an array.
+Cellular Automata is a model studied in automata theory. A cellular automaton consists of a grid of cells with a finite number of states (in this case, on or off). For each increase in time (in any unit definied), the cells around a particular cell will determine its state.
 
-Moore’s Neighborhood, or the eight cells surrounding every cell, will determine what happens in the next generation. A generation in respect to the game is advancing a stage in which rules are enacted. These rules dictate what will happen as the game progresses.
+In this cellular automata program, users are given the option to...
+- change the size of the board
+- change what amount of neighbors determine if a cell will be turned off, on, or persist
+- change what amount of time causes the board to update
+- change visiual settings
+- plot on the board or highlight and selected cells to turn them off or on
 
-### Rules:
+### Conway's Game of Life Rules (Default Settings):
 Any live cell with fewer than two live neighbours die
 Any live cell with two or three live neighbours progresses on to the next generation
 Any live cell with more than three live neighbours dies
 Any dead cell with exactly three live neighbours becomes alive
 
-My specific edition of this game will have options for other rules, which can be turned on and off at will.
-
-### Patterns:
-Some common patterns are...
-
-Still Life: A pattern that doesn’t change in shape or size from generation to generation
-Oscillator: A pattern that changes in shape and/or size from generation to generation, but returns to their original pattern and position within a finite number of generations.
-SpaceShip: A pattern that translates itself across the board.
-
 ### Implementation
 
-This is written Java, using awt and swing.
+The program is split into three different classes. The `Cell` class contains key information like its state and the amount of neighbors around it. The `Board` class handles key operations between cells. The `GameOfLife` class handles the UI aspects of the model as well as listeners to register information
+
+This is written in Java, using awt and swing.
+
+**NOTE: This is not clean code. It was written when I first started programming for AP Computer Science.**
