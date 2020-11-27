@@ -12,14 +12,13 @@ In this cellular automata program, users are given the option to...
 - plot on the board or highlight and selected cells to turn them off or on
 
 ### Conway's Game of Life Rules (Default Settings):
-Any live cell with fewer than two live neighbours die
-Any live cell with two or three live neighbours progresses on to the next generation
-Any live cell with more than three live neighbours dies
-Any dead cell with exactly three live neighbours becomes alive
+- Any live cell with fewer than two live neighbours die
+- Any live cell with two or three live neighbours progresses on to the next generation
+- Any live cell with more than three live neighbours dies
+- Any dead cell with exactly three live neighbours becomes alive
 
 ### Implementation
 
 The program is split into three different classes. The `Cell` class contains key information like its state and the amount of neighbors around it. The `Board` class handles key operations between cells. The `GameOfLife` class handles the UI aspects of the model as well as listeners to register information
 
 This is written in Java, using awt and swing.
-
