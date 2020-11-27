@@ -22,3 +22,4 @@ Any dead cell with exactly three live neighbours becomes alive
 The program is split into three different classes. The `Cell` class contains key information like its state and the amount of neighbors around it. The `Board` class handles key operations between cells. The `GameOfLife` class handles the UI aspects of the model as well as listeners to register information
 
 This is written in Java, using awt and swing.
+
